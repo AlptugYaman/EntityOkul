@@ -1,0 +1,14 @@
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\bin\webEntityOkul.dll
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\bin\webEntityOkul.pdb
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\obj\Debug\webEntityOkul.csprojResolveAssemblyReference.cache
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\obj\Debug\webEntityOkul.dll
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\obj\Debug\webEntityOkul.pdb
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\bin\EntityFramework.dll
+C:\Users\HISection-2\Documents\HIO_Net\webEntityOkul\webEntityOkul\bin\EntityFramework.xml
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\bin\webEntityOkul.dll
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\bin\webEntityOkul.pdb
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\bin\EntityFramework.dll
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\bin\EntityFramework.xml
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\obj\Debug\webEntityOkul.csprojResolveAssemblyReference.cache
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\obj\Debug\webEntityOkul.dll
+\\WISSEN305\ortak\HIO_Nethoca\webEntityOkul\webEntityOkul\obj\Debug\webEntityOkul.pdb

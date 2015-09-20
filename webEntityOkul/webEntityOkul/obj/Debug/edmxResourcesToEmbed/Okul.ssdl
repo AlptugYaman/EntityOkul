@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OKULModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="OKULModelStoreContainer">
+    <EntitySet Name="Kurslar" EntityType="OKULModel.Store.Kurslar" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ogrenciler" EntityType="OKULModel.Store.Ogrenciler" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ogretmenler" EntityType="OKULModel.Store.Ogretmenler" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Siniflar" EntityType="OKULModel.Store.Siniflar" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Ogrenciler_Siniflar" Association="OKULModel.Store.FK_Ogrenciler_Siniflar">
+      <End Role="Siniflar" EntitySet="Siniflar" />
+      <End Role="Ogrenciler" EntitySet="Ogrenciler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ogretmenler_Kurslar" Association="OKULModel.Store.FK_Ogretmenler_Kurslar">
+      <End Role="Kurslar" EntitySet="Kurslar" />
+      <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Siniflar_Ogretmenler" Association="OKULModel.Store.FK_Siniflar_Ogretmenler">
+      <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+      <End Role="Siniflar" EntitySet="Siniflar" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Kurslar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="KursAd" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Aciklama" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Ogrenciler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Soyad" Type="varchar" MaxLength="20" />
+    <Property Name="Telefon" Type="varchar" MaxLength="15" />
+    <Property Name="Adres" Type="varchar" MaxLength="150" />
+    <Property Name="TCKNo" Type="varchar" MaxLength="20" />
+    <Property Name="Tutar" Type="money" Nullable="false" />
+    <Property Name="TaksitSayisi" Type="tinyint" Nullable="false" />
+    <Property Name="SinifID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ogretmenler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Soyad" Type="varchar" MaxLength="20" />
+    <Property Name="Telefon" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="KursID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Siniflar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SinifAd" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="ATarihi" Type="datetime" Nullable="false" />
+    <Property Name="KTarihi" Type="datetime" Nullable="false" />
+    <Property Name="OgretmenID" Type="int" Nullable="false" />
+    <Property Name="Aciklama" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK_Ogrenciler_Siniflar">
+    <End Role="Siniflar" Type="OKULModel.Store.Siniflar" Multiplicity="1" />
+    <End Role="Ogrenciler" Type="OKULModel.Store.Ogrenciler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Siniflar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ogrenciler">
+        <PropertyRef Name="SinifID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ogretmenler_Kurslar">
+    <End Role="Kurslar" Type="OKULModel.Store.Kurslar" Multiplicity="1" />
+    <End Role="Ogretmenler" Type="OKULModel.Store.Ogretmenler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kurslar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ogretmenler">
+        <PropertyRef Name="KursID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Siniflar_Ogretmenler">
+    <End Role="Ogretmenler" Type="OKULModel.Store.Ogretmenler" Multiplicity="1" />
+    <End Role="Siniflar" Type="OKULModel.Store.Siniflar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmenler">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Siniflar">
+        <PropertyRef Name="OgretmenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

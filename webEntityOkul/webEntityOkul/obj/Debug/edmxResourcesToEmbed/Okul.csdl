@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OKULModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="OKULEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Kurslar" EntityType="OKULModel.Kurslar" />
+    <EntitySet Name="Ogrenciler" EntityType="OKULModel.Ogrenciler" />
+    <EntitySet Name="Ogretmenler" EntityType="OKULModel.Ogretmenler" />
+    <EntitySet Name="Siniflar" EntityType="OKULModel.Siniflar" />
+    <AssociationSet Name="FK_Ogretmenler_Kurslar" Association="OKULModel.FK_Ogretmenler_Kurslar">
+      <End Role="Kurslar" EntitySet="Kurslar" />
+      <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ogrenciler_Siniflar" Association="OKULModel.FK_Ogrenciler_Siniflar">
+      <End Role="Siniflar" EntitySet="Siniflar" />
+      <End Role="Ogrenciler" EntitySet="Ogrenciler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Siniflar_Ogretmenler" Association="OKULModel.FK_Siniflar_Ogretmenler">
+      <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+      <End Role="Siniflar" EntitySet="Siniflar" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Kurslar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="KursAd" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Aciklama" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Ogretmenler" Relationship="OKULModel.FK_Ogretmenler_Kurslar" FromRole="Kurslar" ToRole="Ogretmenler" />
+  </EntityType>
+  <EntityType Name="Ogrenciler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Soyad" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Telefon" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Adres" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="TCKNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Tutar" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TaksitSayisi" Type="Byte" Nullable="false" />
+    <Property Name="SinifID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Siniflar" Relationship="OKULModel.FK_Ogrenciler_Siniflar" FromRole="Ogrenciler" ToRole="Siniflar" />
+  </EntityType>
+  <EntityType Name="Ogretmenler">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Soyad" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Telefon" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="KursID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kurslar" Relationship="OKULModel.FK_Ogretmenler_Kurslar" FromRole="Ogretmenler" ToRole="Kurslar" />
+    <NavigationProperty Name="Siniflar" Relationship="OKULModel.FK_Siniflar_Ogretmenler" FromRole="Ogretmenler" ToRole="Siniflar" />
+  </EntityType>
+  <EntityType Name="Siniflar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SinifAd" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="ATarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="KTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OgretmenID" Type="Int32" Nullable="false" />
+    <Property Name="Aciklama" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Ogrenciler" Relationship="OKULModel.FK_Ogrenciler_Siniflar" FromRole="Siniflar" ToRole="Ogrenciler" />
+    <NavigationProperty Name="Ogretmenler" Relationship="OKULModel.FK_Siniflar_Ogretmenler" FromRole="Siniflar" ToRole="Ogretmenler" />
+  </EntityType>
+  <Association Name="FK_Ogretmenler_Kurslar">
+    <End Role="Kurslar" Type="OKULModel.Kurslar" Multiplicity="1" />
+    <End Role="Ogretmenler" Type="OKULModel.Ogretmenler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kurslar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ogretmenler">
+        <PropertyRef Name="KursID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ogrenciler_Siniflar">
+    <End Role="Siniflar" Type="OKULModel.Siniflar" Multiplicity="1" />
+    <End Role="Ogrenciler" Type="OKULModel.Ogrenciler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Siniflar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ogrenciler">
+        <PropertyRef Name="SinifID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Siniflar_Ogretmenler">
+    <End Role="Ogretmenler" Type="OKULModel.Ogretmenler" Multiplicity="1" />
+    <End Role="Siniflar" Type="OKULModel.Siniflar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmenler">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Siniflar">
+        <PropertyRef Name="OgretmenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

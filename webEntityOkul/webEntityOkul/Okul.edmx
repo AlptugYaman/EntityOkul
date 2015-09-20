@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OKULModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="OKULModelStoreContainer">
+          <EntitySet Name="Kurslar" EntityType="OKULModel.Store.Kurslar" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ogrenciler" EntityType="OKULModel.Store.Ogrenciler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ogretmenler" EntityType="OKULModel.Store.Ogretmenler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Siniflar" EntityType="OKULModel.Store.Siniflar" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Ogrenciler_Siniflar" Association="OKULModel.Store.FK_Ogrenciler_Siniflar">
+            <End Role="Siniflar" EntitySet="Siniflar" />
+            <End Role="Ogrenciler" EntitySet="Ogrenciler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogretmenler_Kurslar" Association="OKULModel.Store.FK_Ogretmenler_Kurslar">
+            <End Role="Kurslar" EntitySet="Kurslar" />
+            <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siniflar_Ogretmenler" Association="OKULModel.Store.FK_Siniflar_Ogretmenler">
+            <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+            <End Role="Siniflar" EntitySet="Siniflar" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kurslar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="KursAd" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Aciklama" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Ogrenciler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Soyad" Type="varchar" MaxLength="20" />
+          <Property Name="Telefon" Type="varchar" MaxLength="15" />
+          <Property Name="Adres" Type="varchar" MaxLength="150" />
+          <Property Name="TCKNo" Type="varchar" MaxLength="20" />
+          <Property Name="Tutar" Type="money" Nullable="false" />
+          <Property Name="TaksitSayisi" Type="tinyint" Nullable="false" />
+          <Property Name="SinifID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ogretmenler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Soyad" Type="varchar" MaxLength="20" />
+          <Property Name="Telefon" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="KursID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Siniflar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SinifAd" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ATarihi" Type="datetime" Nullable="false" />
+          <Property Name="KTarihi" Type="datetime" Nullable="false" />
+          <Property Name="OgretmenID" Type="int" Nullable="false" />
+          <Property Name="Aciklama" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_Ogrenciler_Siniflar">
+          <End Role="Siniflar" Type="OKULModel.Store.Siniflar" Multiplicity="1" />
+          <End Role="Ogrenciler" Type="OKULModel.Store.Ogrenciler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siniflar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogrenciler">
+              <PropertyRef Name="SinifID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogretmenler_Kurslar">
+          <End Role="Kurslar" Type="OKULModel.Store.Kurslar" Multiplicity="1" />
+          <End Role="Ogretmenler" Type="OKULModel.Store.Ogretmenler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurslar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogretmenler">
+              <PropertyRef Name="KursID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siniflar_Ogretmenler">
+          <End Role="Ogretmenler" Type="OKULModel.Store.Ogretmenler" Multiplicity="1" />
+          <End Role="Siniflar" Type="OKULModel.Store.Siniflar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogretmenler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siniflar">
+              <PropertyRef Name="OgretmenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OKULModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OKULEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Kurslar" EntityType="OKULModel.Kurslar" />
+          <EntitySet Name="Ogrenciler" EntityType="OKULModel.Ogrenciler" />
+          <EntitySet Name="Ogretmenler" EntityType="OKULModel.Ogretmenler" />
+          <EntitySet Name="Siniflar" EntityType="OKULModel.Siniflar" />
+          <AssociationSet Name="FK_Ogretmenler_Kurslar" Association="OKULModel.FK_Ogretmenler_Kurslar">
+            <End Role="Kurslar" EntitySet="Kurslar" />
+            <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenciler_Siniflar" Association="OKULModel.FK_Ogrenciler_Siniflar">
+            <End Role="Siniflar" EntitySet="Siniflar" />
+            <End Role="Ogrenciler" EntitySet="Ogrenciler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siniflar_Ogretmenler" Association="OKULModel.FK_Siniflar_Ogretmenler">
+            <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+            <End Role="Siniflar" EntitySet="Siniflar" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kurslar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="KursAd" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Ogretmenler" Relationship="OKULModel.FK_Ogretmenler_Kurslar" FromRole="Kurslar" ToRole="Ogretmenler" />
+        </EntityType>
+        <EntityType Name="Ogrenciler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Soyad" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Telefon" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Adres" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="TCKNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Tutar" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TaksitSayisi" Type="Byte" Nullable="false" />
+          <Property Name="SinifID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Siniflar" Relationship="OKULModel.FK_Ogrenciler_Siniflar" FromRole="Ogrenciler" ToRole="Siniflar" />
+        </EntityType>
+        <EntityType Name="Ogretmenler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Soyad" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Telefon" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="KursID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kurslar" Relationship="OKULModel.FK_Ogretmenler_Kurslar" FromRole="Ogretmenler" ToRole="Kurslar" />
+          <NavigationProperty Name="Siniflar" Relationship="OKULModel.FK_Siniflar_Ogretmenler" FromRole="Ogretmenler" ToRole="Siniflar" />
+        </EntityType>
+        <EntityType Name="Siniflar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SinifAd" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="ATarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OgretmenID" Type="Int32" Nullable="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Ogrenciler" Relationship="OKULModel.FK_Ogrenciler_Siniflar" FromRole="Siniflar" ToRole="Ogrenciler" />
+          <NavigationProperty Name="Ogretmenler" Relationship="OKULModel.FK_Siniflar_Ogretmenler" FromRole="Siniflar" ToRole="Ogretmenler" />
+        </EntityType>
+        <Association Name="FK_Ogretmenler_Kurslar">
+          <End Role="Kurslar" Type="OKULModel.Kurslar" Multiplicity="1" />
+          <End Role="Ogretmenler" Type="OKULModel.Ogretmenler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurslar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogretmenler">
+              <PropertyRef Name="KursID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenciler_Siniflar">
+          <End Role="Siniflar" Type="OKULModel.Siniflar" Multiplicity="1" />
+          <End Role="Ogrenciler" Type="OKULModel.Ogrenciler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siniflar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogrenciler">
+              <PropertyRef Name="SinifID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siniflar_Ogretmenler">
+          <End Role="Ogretmenler" Type="OKULModel.Ogretmenler" Multiplicity="1" />
+          <End Role="Siniflar" Type="OKULModel.Siniflar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogretmenler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Siniflar">
+              <PropertyRef Name="OgretmenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OKULModelStoreContainer" CdmEntityContainer="OKULEntities">
+          <EntitySetMapping Name="Kurslar">
+            <EntityTypeMapping TypeName="OKULModel.Kurslar">
+              <MappingFragment StoreEntitySet="Kurslar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KursAd" ColumnName="KursAd" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogrenciler">
+            <EntityTypeMapping TypeName="OKULModel.Ogrenciler">
+              <MappingFragment StoreEntitySet="Ogrenciler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="TCKNo" ColumnName="TCKNo" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="TaksitSayisi" ColumnName="TaksitSayisi" />
+                <ScalarProperty Name="SinifID" ColumnName="SinifID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogretmenler">
+            <EntityTypeMapping TypeName="OKULModel.Ogretmenler">
+              <MappingFragment StoreEntitySet="Ogretmenler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="KursID" ColumnName="KursID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siniflar">
+            <EntityTypeMapping TypeName="OKULModel.Siniflar">
+              <MappingFragment StoreEntitySet="Siniflar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SinifAd" ColumnName="SinifAd" />
+                <ScalarProperty Name="ATarihi" ColumnName="ATarihi" />
+                <ScalarProperty Name="KTarihi" ColumnName="KTarihi" />
+                <ScalarProperty Name="OgretmenID" ColumnName="OgretmenID" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

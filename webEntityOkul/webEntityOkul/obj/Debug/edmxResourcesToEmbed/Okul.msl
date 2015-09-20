@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OKULModelStoreContainer" CdmEntityContainer="OKULEntities">
+    <EntitySetMapping Name="Kurslar">
+      <EntityTypeMapping TypeName="OKULModel.Kurslar">
+        <MappingFragment StoreEntitySet="Kurslar">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="KursAd" ColumnName="KursAd" />
+          <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ogrenciler">
+      <EntityTypeMapping TypeName="OKULModel.Ogrenciler">
+        <MappingFragment StoreEntitySet="Ogrenciler">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Ad" ColumnName="Ad" />
+          <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="TCKNo" ColumnName="TCKNo" />
+          <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+          <ScalarProperty Name="TaksitSayisi" ColumnName="TaksitSayisi" />
+          <ScalarProperty Name="SinifID" ColumnName="SinifID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ogretmenler">
+      <EntityTypeMapping TypeName="OKULModel.Ogretmenler">
+        <MappingFragment StoreEntitySet="Ogretmenler">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Ad" ColumnName="Ad" />
+          <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="KursID" ColumnName="KursID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Siniflar">
+      <EntityTypeMapping TypeName="OKULModel.Siniflar">
+        <MappingFragment StoreEntitySet="Siniflar">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SinifAd" ColumnName="SinifAd" />
+          <ScalarProperty Name="ATarihi" ColumnName="ATarihi" />
+          <ScalarProperty Name="KTarihi" ColumnName="KTarihi" />
+          <ScalarProperty Name="OgretmenID" ColumnName="OgretmenID" />
+          <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
